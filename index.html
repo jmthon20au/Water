@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تذكير بشرب الماء</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #a2d4f2, #ffffff);
+      text-align: center;
+    }
+
+    .container {
+      background-color: #ffffffdd;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>مرحباً بك!</h1>
+  <p>اضغط لبدء التذكير بشرب الماء كل 5 ثوانٍ</p>
+  <button onclick="startReminder()">ابدأ التذكير</button>
+</div>
+
+<script>
+  function startReminder() {
+    if (!("Notification" in window)) {
+      alert("المتصفح لا يدعم الإشعارات.");
+      return;
+    }
+
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        setInterval(() => {
+          new Notification("اشرب مي", {
+            body: "لا تنسَ شرب الماء لصحتك!",
+            icon: "https://cdn-icons-png.flaticon.com/512/728/728093.png"
+          });
+        }, 5000);
+      } else {
+        alert("يرجى السماح بالإشعارات لتلقي التذكيرات.");
+      }
+    });
+  }
+</script>
+
+</body>
+  </html>
